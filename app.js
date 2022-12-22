@@ -1,7 +1,8 @@
 const path = require('path')
 const express = require('express');
 const bodyParser = require('body-parser');
-// const pageNotFound = require('./controllers/error');
+const sequelize = require('./util/database');
+const pageNotFound = require('./controllers/error');
 
 const app = express();
 
@@ -12,7 +13,14 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(pageNotFound.get404Page);
 
+sequelize
+  .sync()
+  .then(result => {
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
-
-app.listen(3000);
