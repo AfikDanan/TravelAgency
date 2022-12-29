@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/flight.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (flights.length> 0) { %>
+                    <div class="grid">
+                        <% for (let flight of flights) { %>
+                            <article class="card flight-item">
+                                <header class="card__header">
+                                    <h1 class="flight__title">
+                                        <%= flight.title %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= flight.imageUrl %>" alt="<%= flight.title %>">
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="flight__price">$
+                                        <%= flight.price %>
+                                    </h2>
+                                    <p class="flight__description">
+                                        <%= flight.description %>
+                                    </p>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/admin/edit-flight/<%= flight._id %>?edit=true" class="btn">Edit</a>
+                                    <form action="/admin/delete-flight" method="POST">
+                                        <input type="hidden" value="<%= flight._id %>" name="flightId">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button class="btn" type="submit">Delete</button>
+                                    </form>
+
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No flights Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
