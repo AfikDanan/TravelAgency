@@ -1,0 +1,42 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/flight.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <form class="flight-form" action="/admin/<% if (editing) { %>edit-flight<% } else { %>add-flight<% } %>"
+                    method="POST">
+                    <div class="form-control">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title"
+                            value="<% if (editing) { %><%= flight.title %><% } %>">
+                    </div>
+                    <div class="form-control">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" name="imageUrl" id="imageUrl"
+                            value="<% if (editing) { %><%= flight.imageUrl %><% } %>">
+                    </div>
+                    <div class="form-control">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" step="0.01"
+                            value="<% if (editing) { %><%= flight.price %><% } %>">
+                    </div>
+                    <div class="form-control">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description"
+                            rows="5"><% if (editing) { %><%= flight.description %><% } %></textarea>
+                    </div>
+                    <% if (editing) { %>
+                        <input type="hidden" value="<%= flight._id %>" name="flightId">
+                        <% } %>
+
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn" type="submit">
+                                <% if (editing) { %>Update flight<% } else { %>Add flight<% } %>
+                            </button>
+                </form>
+            </main>
+            <%- include('../includes/end.ejs') %>

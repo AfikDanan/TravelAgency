@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/flight.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (flights.length> 0) { %>
+                    <div class="grid">
+                        <% for (let flight of flights) { %>
+                            <article class="card flight-item">
+                                <header class="card__header">
+                                    <h1 class="flight__title">
+                                        <%= flight.destinaton %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= flight.imagePath %>" alt="<%= flight.destinaton %>">
+
+                                </div>
+                                <div class="card__content">
+                                    <p class="flight__description">
+                                        from <%= flight.origin %> to <%= flight.destinaton %></br>
+                                                date: <%= flight.date %></br>
+                                                    Take Off: <%= flight.takeOffTime %>.</br>
+                                                        Landing: <%= flight.landing %>.</br>
+                                                            available seats: <%= flight.numOfSeats %>.</br>
+
+                                    </p>
+
+                                    <h2 class="flight__price">price: $
+                                        <%= flight.price %>
+                                    </h2>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/flights/<%= flight._id %>" class="btn">Details</a>
+                                    <% if (isAuthenticated) { %>
+                                        <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
+                                            <% } %>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No flights Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
