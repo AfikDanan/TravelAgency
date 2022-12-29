@@ -1,0 +1,42 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main>
+                <div class="grid">
+                    <article class="card flight-item">
+                        <header class="card__header">
+                            <h1 class="flight__title">
+                                <%= flight.destinaton %>
+                            </h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= flight.imagePath %>" alt="<%= flight.destinaton %>">
+
+                        </div>
+                        <div class="card__content">
+                            <p class="flight__description">
+                                from <%= flight.origin %> to <%= flight.destinaton %></br>
+                                        date: <%= flight.date %></br>
+                                            Take Off: <%= flight.takeOffTime %>.</br>
+                                                Landing: <%= flight.landing %>.</br>
+                                                    available seats: <%= flight.numOfSeats %>.</br>
+
+                            </p>
+
+                            <h2 class="flight__price">price: $
+                                <%= flight.price %>
+                            </h2>
+                        </div>
+                        <div class="card__actions">
+
+                            <% if (isAuthenticated) { %>
+                                <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
+                                    <% } %>
+                        </div>
+
+                    </article>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>
