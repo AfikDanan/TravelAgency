@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/add-flight', isAuth, adminController.getAddflight);
 
 // /admin/flights => GET
-router.get('/flights', isAuth, adminController.getflights);
+router.get('/flights', isAuth, adminController.refreshDB, adminController.getflights);
 
 // /admin/add-flight => POST
 router.post('/add-flight', isAuth, adminController.postAddflight);

@@ -11,7 +11,7 @@
                             <li class="cart__item">
                                 <h2>
                                     flight to
-                                    <%= f.flightId.destinaton %>
+                                    <%= f.flightId.destination %>
                                         from <%= f.flightId.origin %> :
                                 </h2>
                                 <h2>Quantity: <%= f.quantity %>
@@ -26,10 +26,11 @@
                     </ul>
                     <hr>
                     <div class="centered">
-                        <form action="/create-order" method="POST">
+                        <!-- <form action="/create-order" method="POST">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <button type="submit" class="btn">Order Now!</button>
-                        </form>
+                        </form> -->
+                        <a class="btn" href="/checkout">checkout</a>
                     </div>
 
                     <% } else { %>

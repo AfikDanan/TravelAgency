@@ -1,30 +1,45 @@
-const flight = require('../models/flight');
+const Flight = require('../models/flight');
 const User = require('../models/user');
 
 exports.getAddflight = (req, res, next) => {
+  let isAdmin = false;
+  if (req.session.user) {
+    isAdmin = req.session.user.type === 'admin';
+  }
   res.render('admin/edit-flight', {
     pageTitle: 'Add flight',
     path: '/admin/add-flight',
-    editing: false
+    editing: false,
+    isAdmin: isAdmin,
   });
 };
 
+
+exports.refreshDB = (req, res, next) => {
+  const today = new Date();
+  Flight.deleteMany({ date: { $lte: today } }, err => {
+    if (err) {
+      console.log(err);
+    }
+    next();
+  });
+
+};
+
 exports.postAddflight = (req, res, next) => {
-  const title = req.body.title;
-  const imageUrl = req.body.imageUrl;
-  const price = req.body.price;
-  const description = req.body.description;
-  const flight = new flight({
-    title: title,
-    price: price,
-    description: description,
-    imageUrl: imageUrl,
-    userId: req.user
+  const flight = new Flight({
+    destination: req.body.destination,
+    origin: req.body.origin,
+    date: new Date(req.body.date),
+    takeOffTime: req.body.takeOffTime,
+    landing: req.body.landing,
+    numOfSeats: req.body.numOfSeats,
+    price: req.body.price,
+    imagePath: req.body.imagePath,
   });
   flight
     .save()
     .then(result => {
-      // console.log(result);
       console.log('Created flight');
       res.redirect('/admin/flights');
     })
@@ -34,12 +49,16 @@ exports.postAddflight = (req, res, next) => {
 };
 
 exports.getEditflight = (req, res, next) => {
+  let isAdmin = false;
   const editMode = req.query.edit;
+  if (req.session.user) {
+    isAdmin = req.session.user.type === 'admin';
+  }
   if (!editMode) {
     return res.redirect('/');
   }
   const flightId = req.params.flightId;
-  flight.findById(flightId)
+  Flight.findById(flightId)
     .then(flight => {
       if (!flight) {
         return res.redirect('/');
@@ -48,25 +67,34 @@ exports.getEditflight = (req, res, next) => {
         pageTitle: 'Edit flight',
         path: '/admin/edit-flight',
         editing: editMode,
-        flight: flight
+        flight: flight,
+        isAdmin: isAdmin,
       });
     })
     .catch(err => console.log(err));
 };
 
 exports.postEditflight = (req, res, next) => {
-  const flightId = req.body.flightId;
-  const updatedTitle = req.body.title;
+  const updatedDestinaton = req.body.destinaton;
+  const updatedOrigin = req.body.origin;
+  const updatedDate = req.body.date;
+  const updatedTakeOffTime = req.body.takeOffTime;
+  const updatedLanding = req.body.landing;
+  const updatedNumOfSeats = req.body.numOfSeats;
   const updatedPrice = req.body.price;
-  const updatedImageUrl = req.body.imageUrl;
-  const updatedDesc = req.body.description;
+  const updatedImagePath = req.body.imagePath;
+  const flightId = req.body.flightId;
 
-  flight.findById(flightId)
+  Flight.findById(flightId)
     .then(flight => {
-      flight.title = updatedTitle;
+      flight.destinaton = updatedDestinaton;
+      flight.origin = updatedOrigin;
+      flight.date = updatedDate;
+      flight.takeOffTime = updatedTakeOffTime;
+      flight.landing = updatedLanding;
+      flight.numOfSeats = updatedNumOfSeats;
       flight.price = updatedPrice;
-      flight.description = updatedDesc;
-      flight.imageUrl = updatedImageUrl;
+      flight.imagePath = updatedImagePath;
       return flight.save();
     })
     .then(result => {
@@ -77,15 +105,17 @@ exports.postEditflight = (req, res, next) => {
 };
 
 exports.getflights = (req, res, next) => {
-  flight.find()
-    // .select('title price -_id')
-    // .populate('userId', 'name')
+  let isAdmin = false;
+  if (req.session.user) {
+    isAdmin = req.session.user.type === 'admin';
+  }
+  Flight.find()
     .then(flights => {
-      console.log(flights);
       res.render('admin/flights', {
         flights: flights,
         pageTitle: 'Admin flights',
-        path: '/admin/flights'
+        path: '/admin/flights',
+        isAdmin: isAdmin,
       });
     })
     .catch(err => console.log(err));
@@ -93,11 +123,11 @@ exports.getflights = (req, res, next) => {
 
 exports.postDeleteflight = (req, res, next) => {
   const flightId = req.body.flightId;
-  flight.findByIdAndRemove(flightId)
+  Flight.findByIdAndRemove(flightId)
     .then(() => {
       for (let user of User.find()) {
         if (user.cart.item.flightId == flightId) {
-          user.removeFromCart(flightId)
+          user.removeFromCart(flightId) // need to check
         }
       }
     }).then(() => {
