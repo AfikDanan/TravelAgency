@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     takeOffTime: {
@@ -19,7 +20,7 @@ const flightSchema = new Schema({
         type: String,
         required: true
     },
-    destinaton: {
+    destination: {
         type: String,
         required: true
     },
