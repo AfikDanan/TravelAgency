@@ -10,25 +10,55 @@
                 <form class="flight-form" action="/admin/<% if (editing) { %>edit-flight<% } else { %>add-flight<% } %>"
                     method="POST">
                     <div class="form-control">
-                        <label for="title">Title</label>
-                        <input type="text" name="title" id="title"
-                            value="<% if (editing) { %><%= flight.title %><% } %>">
+                        <label for="destination">Destination</label>
+                        <input type="text" name="destination" id="destination"
+                            value="<% if (editing) { %><%= flight.destination %><% } %>">
                     </div>
+
                     <div class="form-control">
-                        <label for="imageUrl">Image URL</label>
-                        <input type="text" name="imageUrl" id="imageUrl"
-                            value="<% if (editing) { %><%= flight.imageUrl %><% } %>">
+                        <label for="origin">Origin</label>
+                        <input type="text" name="origin" id="origin"
+                            value="<% if (editing) { %><%= flight.origin %><% } %>">
+                    </div>
+
+
+                    <div class="form-control">
+                        <label for="date">Date</label>
+                        <input type="text" name="date" id="date"
+                            value="<% if (editing) { %><%= flight.date.toDateString() %><% } %>">
+                    </div>
+
+
+                    <div class="form-control">
+                        <label for="takeOffTime">take Off </label>
+                        <input type="text" name="takeOffTime" id="takeOffTime"
+                            value="<% if (editing) { %><%= flight.takeOffTime %><% } %>">
+                    </div>
+
+                    <div class="form-control">
+                        <label for="landing">Landing </label>
+                        <input type="text" name="landing" id="landing"
+                            value="<% if (editing) { %><%= flight.landing %><% } %>">
+                    </div>
+
+                    <div class="form-control">
+                        <label for="numOfSeats">number Of seats</label>
+                        <input type="number" name="numOfSeats" id="numOfSeats" step="1"
+                            value="<% if (editing) { %><%= flight.numOfSeats %><% } %>">
                     </div>
                     <div class="form-control">
                         <label for="price">Price</label>
                         <input type="number" name="price" id="price" step="0.01"
                             value="<% if (editing) { %><%= flight.price %><% } %>">
                     </div>
+
                     <div class="form-control">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description"
-                            rows="5"><% if (editing) { %><%= flight.description %><% } %></textarea>
+                        <label for="imagePath">Image Path</label>
+                        <input type="text" name="imagePath" id="imagePath"
+                            value="<% if (editing) { %><%= flight.imagePath %><% } %>">
                     </div>
+
+
                     <% if (editing) { %>
                         <input type="hidden" value="<%= flight._id %>" name="flightId">
                         <% } %>

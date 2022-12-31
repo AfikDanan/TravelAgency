@@ -1,15 +1,18 @@
 <form action="/cart" method="post">
+    <% if (isAuthenticated) { %>
+        <div class="quantity buttons_added card__actions">
+            <h4> number of tickets: </h4>
+            <input type="button" value="-" class="minus">
+            <input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="input-text qty text"
+                size="4">
+            <input type="button" value="+" class="plus">
 
-    <div class="quantity buttons_added ">
-        <h4> number of tickets: </h4>
-        <input type="button" value="-" class="minus">
-        <input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="input-text qty text"
-            size="4">
-        <input type="button" value="+" class="plus">
+        </div>
+        <% }%>
+            <div class="card__actions">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn" type="submit">Add to Cart</button>
+                <input type="hidden" name="flightId" value="<%= flight._id %>">
 
-    </div>
-
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <button class="btn" type="submit">Add to Cart</button>
-    <input type="hidden" name="flightId" value="<%= flight._id %>">
+            </div>
 </form>

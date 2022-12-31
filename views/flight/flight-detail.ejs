@@ -8,20 +8,20 @@
                     <article class="card flight-item">
                         <header class="card__header">
                             <h1 class="flight__title">
-                                <%= flight.destinaton %>
+                                <%= flight.destination %>
                             </h1>
                         </header>
                         <div class="card__image">
-                            <img src="<%= flight.imagePath %>" alt="<%= flight.destinaton %>">
+                            <img src="<%= flight.imagePath %>" alt="<%= flight.destination %>">
 
                         </div>
                         <div class="card__content">
                             <p class="flight__description">
-                                from <%= flight.origin %> to <%= flight.destinaton %></br>
+                                from <%= flight.origin %> to <%= flight.destination %></br>
                                         date: <%= flight.date %></br>
-                                            Take Off: <%= flight.takeOffTime %>.</br>
-                                                Landing: <%= flight.landing %>.</br>
-                                                    available seats: <%= flight.numOfSeats %>.</br>
+                                            Take Off: <%= flight.takeOffTime %></br>
+                                                Landing: <%= flight.landing %></br>
+                                                    available seats: <%= flight.numOfSeats %></br>
 
                             </p>
 
@@ -30,10 +30,8 @@
                             </h2>
                         </div>
                         <div class="card__actions">
+                            <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
 
-                            <% if (isAuthenticated) { %>
-                                <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
-                                    <% } %>
                         </div>
 
                     </article>

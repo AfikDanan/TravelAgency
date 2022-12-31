@@ -1,0 +1,41 @@
+<form action='/filterFlights' method="get">
+
+  <div class="wrap">
+    <div class="search" style="display:inline-flex;">
+      <input type="text" class="searchTerm" id="search-query" name="destination" placeholder="Search Destination...">
+
+      <input type="number" class="searchTerm" id="price-filter" name="price" placeholder="Max Price">
+
+      <input type="date" class="searchTerm" id="start-date-filter" name="startDate" onchange="handler(event);">
+
+      <input type="date" class="searchTerm" id="end-date-filter" name="endDate" onchange="handler(event);">
+
+      <button class='searchButton' type="submit">Search</button>
+
+      <div style="display:inline-block; margin: 1rem; margin-left: 3rem;">
+        <input type="radio" id="twoWay" name="trip" class="searchTerm-radio" value="twoWay" checked>
+        <label for="twoWay"> Rountrip</label>
+      </div>
+      <div class="reveal-if-active" style="display:inline-block; margin: 1rem; ">
+        <input type="radio" id="oneWay" name="trip" class="searchTerm-radio" value="oneWay">
+        <label for="oneWay"> OneWay</label>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+<script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
+<script src="/vendors/formvalidation/dist/js/plugins/StartEndDate.min.js"></script>
+
+<script>
+  const start_date_input = document.getElementById('start-date-filter');
+  start_date_input.onchange = function () {
+    const startDate = new Date(start_date_input.value);
+    if (startDate.get <= new Date()) {
+      alert("cant use past dates");
+    }
+  }
+
+</script>

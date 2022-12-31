@@ -169,10 +169,12 @@ form {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
+  margin-top: 5rem;
 }
 
 .card {
   box-shadow: 0 20px 18px rgba(0, 0, 0, 0.26);
+
 }
 
 .card__header,
@@ -181,12 +183,10 @@ form {
   text-align: center;
 }
 
-.card__header h1,
+/* .card__header h1,
 .card__content h1,
 .card__content h2,
-.card__content p {
-  margin: 10px;
-}
+.card__content p {} */
 
 .card__image {
   width: 100%;
@@ -198,13 +198,13 @@ form {
 }
 
 .card__actions {
-  padding: 2.5rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .card__actions button,
 .card__actions a {
-  margin: 10px 0.25rem;
+  margin: 1px 0.25rem;
 }
 
 

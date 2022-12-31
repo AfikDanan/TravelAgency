@@ -1,7 +1,7 @@
 /* -- quantity box -- */
 
 .quantity {
-  display: inline-block;
+  display: block;
 }
 
 .quantity .input-text.qty {
@@ -14,7 +14,7 @@
 }
 
 .quantity.buttons_added {
-  text-align: left;
+  text-align: center;
   position: relative;
   white-space: nowrap;
   vertical-align: top;
