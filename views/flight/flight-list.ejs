@@ -4,46 +4,53 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
+            <%- include('../includes/searchBar.ejs') %>
 
-            <main>
-                <% if (flights.length> 0) { %>
-                    <div class="grid">
-                        <% for (let flight of flights) { %>
-                            <article class="card flight-item">
-                                <header class="card__header">
-                                    <h1 class="flight__title">
-                                        <%= flight.destinaton %>
-                                    </h1>
-                                </header>
-                                <div class="card__image">
-                                    <img src="<%= flight.imagePath %>" alt="<%= flight.destinaton %>">
+                <main>
+                    <% if (flights.length> 0) { %>
+                        <div class="grid">
+                            <% for (let flight of flights) { %>
+                                <article class="card flight-item">
+                                    <header class="card__header">
+                                        <h1 class="flight__title">
+                                            <%= flight.destination %>
+                                        </h1>
+                                    </header>
+                                    <div class="card__image">
+                                        <img src="<%= flight.imagePath %>" alt="<%= flight.destination %>">
 
-                                </div>
-                                <div class="card__content">
-                                    <p class="flight__description">
-                                        from <%= flight.origin %> to <%= flight.destinaton %></br>
-                                                date: <%= flight.date %></br>
-                                                    Take Off: <%= flight.takeOffTime %>.</br>
-                                                        Landing: <%= flight.landing %>.</br>
-                                                            available seats: <%= flight.numOfSeats %>.</br>
+                                    </div>
+                                    <div class="card__content">
+                                        <p class="flight__description" id='origin'>
+                                            from <%= flight.origin %> to <%= flight.destination %></br></p>
 
-                                    </p>
+                                        <p class="flight__description" id='date'>
+                                            date: <%= flight.date.toDateString() %></br></p>
 
-                                    <h2 class="flight__price">price: $
-                                        <%= flight.price %>
-                                    </h2>
-                                </div>
-                                <div class="card__actions">
-                                    <a href="/flights/<%= flight._id %>" class="btn">Details</a>
-                                    <% if (isAuthenticated) { %>
+                                        <p class="flight__description" id='takeOffTime'>
+                                            Take Off: <%= flight.takeOffTime %></br> </p>
+
+                                        <p class="flight__description" id='landing'>
+                                            Landing: <%= flight.landing %></br></p>
+
+                                        <p class="flight__description" id='numOfSeats'>
+                                            available seats: <%= flight.numOfSeats %></br></p>
+
+                                        <h2 class="flight__price">price: $
+                                            <%= flight.price %>
+                                        </h2>
+                                    </div>
+                                    <div class="card__actions">
+                                        <a href="/flights/<%= flight._id %>" class="btn">Details</a>
                                         <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
-                                            <% } %>
-                                </div>
-                            </article>
+                                    </div>
+
+                                </article>
+                                <% } %>
+                        </div>
+
+                        <% } else { %>
+                            <h1>No flights Found!</h1>
                             <% } %>
-                    </div>
-                    <% } else { %>
-                        <h1>No flights Found!</h1>
-                        <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
+                </main>
+                <%- include('../includes/end.ejs') %>

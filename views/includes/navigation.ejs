@@ -30,17 +30,19 @@
                             <button type="submit">Logout</button>
                         </form>
                     </li>
-                    <li class="main-nav__item">
-                        <a class="<%= path === '/admin/add-flight' ? 'active' : '' %>" href="/admin/add-flight">Add
-                            flight
-                        </a>
-                    </li>
-                    <li class="main-nav__item">
-                        <a class="<%= path === '/admin/flights' ? 'active' : '' %>" href="/admin/flights">Admin
-                            flights
-                        </a>
-                    </li>
-                    <% } %>
+                    <% if(isAdmin) {%>
+                        <li class="main-header__item">
+                            <a class="<%= path === '/admin/add-flight' ? 'active' : '' %>" href="/admin/add-flight">Add
+                                flight
+                            </a>
+                        </li>
+                        <li class="main-header__item">
+                            <a class="<%= path === '/admin/flights' ? 'active' : '' %>" href="/admin/flights">Admin
+                                flights
+                            </a>
+                        </li>
+                        <% } %>
+                            <% } %>
         </ul>
     </nav>
 </header>
@@ -72,17 +74,19 @@
                                 <button type="submit">Logout</button>
                             </form>
                         </li>
-
-                        <li class="mobile-nav__item">
-                            <a class="<%= path === '/admin/add-flight' ? 'active' : '' %>" href="/admin/add-flight">Add
-                                flight
-                            </a>
-                        </li>
-                        <li class="mobile-nav__item">
-                            <a class="<%= path === '/admin/flights' ? 'active' : '' %>" href="/admin/flights">Admin
-                                flights
-                            </a>
-                        </li>
-                        <% } %>
+                        <% if(isAdmin) {%>
+                            <li class="mobile-nav__item">
+                                <a class="<%= path === '/admin/add-flight' ? 'active' : '' %>"
+                                    href="/admin/add-flight">Add
+                                    flight
+                                </a>
+                            </li>
+                            <li class="mobile-nav__item">
+                                <a class="<%= path === '/admin/flights' ? 'active' : '' %>" href="/admin/flights">Admin
+                                    flights
+                                </a>
+                            </li>
+                            <% } %>
+                                <% } %>
     </ul>
 </nav>

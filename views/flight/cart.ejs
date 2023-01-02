@@ -11,25 +11,39 @@
                             <li class="cart__item">
                                 <h2>
                                     flight to
-                                    <%= f.flightId.destinaton %>
+                                    <%= f.flightId.destination %>
                                         from <%= f.flightId.origin %> :
                                 </h2>
                                 <h2>Quantity: <%= f.quantity %>
                                 </h2>
+                                <form action="/cart" method="POST">
+
+                                    <div class="quantity buttons_added card__actions">
+
+                                        <input type="button" value="-" class="minus">
+                                        <input type="number" step="1" min="1" name="quantity"
+                                            max="<%= f.flightId.numOfSeats%>" id="quantity" value="1" title="Qty"
+                                            class="input-text qty text" size="4">
+                                        <input type="button" value="+" class="plus">
+
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <input type="hidden" name="flightId" value="<%= f.flightId._id %>">
+
+                                        <button class="btn-update" type="submit">Update</button>
+
+                                    </div>
+                                </form>
                                 <form action="/cart-delete-item" method="POST">
                                     <input type="hidden" value="<%= f.flightId._id %>" name="flightId">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button class="btn danger" type="submit">Delete</button>
+                                    <button class="btn-danger" type="submit">Delete</button>
                                 </form>
                             </li>
                             <% }) %>
                     </ul>
                     <hr>
                     <div class="centered">
-                        <form action="/create-order" method="POST">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                            <button type="submit" class="btn">Order Now!</button>
-                        </form>
+                        <a class="btn" href="/checkout">checkout</a>
                     </div>
 
                     <% } else { %>

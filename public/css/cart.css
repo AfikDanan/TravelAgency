@@ -3,14 +3,14 @@
   margin: 0;
   padding: 0;
   margin: auto;
-  width: 40rem;
+  width: 90%;
   max-width: 90%;
 }
 
 .cart__item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin-bottom: 1rem;
@@ -23,3 +23,60 @@
   margin: 0;
 }
 
+.btn-danger:hover,
+.btn-danger:active {
+  background-color: #ab645d;
+  color: white;
+}
+
+.btn-update:hover,
+.btn-update:active {
+  background-color: #5d6aab;
+  color: white;
+}
+
+.btn-danger {
+  outline-color: rgba(248, 4, 4, 0.892);
+  background-color: rgb(205, 8, 1);
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgb(84, 105, 212) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
+  color: #fff;
+}
+
+.btn-update {
+  outline-color: rgb(84 105 212 / 0.5);
+  background-color: rgb(84, 105, 212);
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgb(84, 105, 212) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
+  color: #fff;
+}
+
+.btn-danger,
+.btn-update {
+  font-size: 16px;
+  margin-top: 2rem;
+  margin: 1rem;
+  width: 100%;
+  min-height: 44px;
+  border: unset;
+  border-radius: 4px;
+
+
+
+}
+
+.btn-danger,
+.btn-update {
+  font-weight: 600;
+  cursor: pointer;
+}
