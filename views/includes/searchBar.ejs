@@ -4,11 +4,11 @@
     <div class="search" style="display:inline-flex;">
       <input type="text" class="searchTerm" id="search-query" name="destination" placeholder="Search Destination...">
 
-      <input type="number" class="searchTerm" id="price-filter" name="price" placeholder="Max Price">
+      <input type="number" class="searchTerm" id="price-filter" name="price" placeholder="Max Price" min="0">
 
-      <input type="date" class="searchTerm" id="start-date-filter" name="startDate" onchange="handler(event);">
+      <input type="date" class="searchTerm" id="datePickerIdStart" name="startDate">
 
-      <input type="date" class="searchTerm" id="end-date-filter" name="endDate" onchange="handler(event);">
+      <input type="date" class="searchTerm" id="datePickerIdEnd" name="endDate">
 
       <button class='searchButton' type="submit">Search</button>
 
@@ -30,12 +30,8 @@
 <script src="/vendors/formvalidation/dist/js/plugins/StartEndDate.min.js"></script>
 
 <script>
-  const start_date_input = document.getElementById('start-date-filter');
-  start_date_input.onchange = function () {
-    const startDate = new Date(start_date_input.value);
-    if (startDate.get <= new Date()) {
-      alert("cant use past dates");
-    }
-  }
+  datePickerIdStart.min = new Date().toISOString().split("T")[0];
+  datePickerIdStart.value = new Date().toISOString().split("T")[0];
+  datePickerIdEnd.min = datePickerIdStart.value
 
 </script>

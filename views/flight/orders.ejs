@@ -14,9 +14,9 @@
                                     <h1>Order - # <%= order._id %>
                                     </h1>
                                     <ul class="orders__flights">
-                                        <% order.flights.forEach(p=> { %>
+                                        <% order.flights.forEach(f=> { %>
                                             <li class="orders__flights-item">
-                                                <%= p.flight.title %> (<%= p.quantity %>)
+                                                <%= f.flight.title %> (<%= f.quantity %>)
                                             </li>
                                             <% }); %>
                                     </ul>
