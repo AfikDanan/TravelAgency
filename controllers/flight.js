@@ -91,7 +91,7 @@ exports.getIndex = (req, res, next) => {
     isAdmin = req.session.user.type === 'admin';
   }
 
-  Flight.find().limit(5)
+  Flight.find().limit(4)
     .then(flights => {
       res.render('flight/index', {
         flights: flights,
@@ -255,11 +255,23 @@ exports.getCheckoutSuccess = (req, res, next) => {
       });
       const order = new Order({
         user: {
+          name: req.user.email,
           email: req.user.email,
-          userId: req.user
+          userId: req.user._id
         },
         flights: flights
       });
+      for (f of flights) {
+        Flight.findByIdAndUpdate(f.flight._id, { numOfSeats: (f.flight.numOfSeats - f.quantity) },
+          function (err, docs) {
+            if (err) {
+              console.log(err)
+            }
+            else {
+              console.log("Updated User : ", docs);
+            }
+          });
+      }
       return order.save();
     })
     .then(result => {

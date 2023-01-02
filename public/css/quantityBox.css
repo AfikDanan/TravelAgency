@@ -25,10 +25,13 @@
   margin: 0;
   vertical-align: top;
   box-shadow: none;
+  font-weight: bold;
 }
 
 .quantity.buttons_added .minus,
 .quantity.buttons_added .plus {
+  font-size: 14px;
+  font-weight: bold;
   padding: 7px 10px 8px;
   height: 41px;
   background-color: #ffffff;
