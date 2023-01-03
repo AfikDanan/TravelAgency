@@ -1,3 +1,4 @@
+process.env.TZ = "Asia/Jerusalem";
 const path = require('path')
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +9,6 @@ const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const MongoDBTravelAgency = require('connect-mongodb-session')(session);
 const MONGODB_URI = "mongodb+srv://admin:admin@cluster.xmzwgdr.mongodb.net/TravelAgency?retryWrites=true&w=majority";
-
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 

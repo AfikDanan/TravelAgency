@@ -33,6 +33,10 @@ form {
   max-height: 20rem;
 }
 
+.searchBarStickTop {
+  position: absolute;
+}
+
 .main-header {
   width: 100%;
   height: 3.5rem;

@@ -27,8 +27,6 @@ exports.getAllflights = (req, res, next) => {
 };
 
 exports.getFilterflights = (req, res, next) => {
-  // const tripFilter = req.query.trip;
-
   let isAdmin = false;
   if (req.session.user) {
     isAdmin = req.session.user.type === 'admin';
@@ -36,11 +34,12 @@ exports.getFilterflights = (req, res, next) => {
 
   const query1 = {};
   const query2 = {};
+  const sortByQurey = {};
   if (req.query.destination) {
     query1.destination = req.query.destination;
   }
-  if (req.query.price) {
-    query1.price = { $lte: req.query.price };
+  if (req.query.minPrice || req.query.maxPrice) {
+    query1.price = { $gte: req.query.minPrice || 0, $lte: req.query.maxPrice || 10000 };
     query2.price = query1.price;
   }
   if (req.query.startDate && req.query.endDate) {
@@ -53,18 +52,34 @@ exports.getFilterflights = (req, res, next) => {
   else {
     query2.destination = query1.destination;
   }
-  Flight.find({ $or: [query1, query2] }, function (err, flights) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.render('flight/flight-list', {
-        flights: flights,
-        pageTitle: 'All flights',
-        path: '/flights',
-        isAdmin: isAdmin,
-      })
+
+  if (req.query.sortBy) {
+    if (req.query.sortBy === 'priceAsc') {
+      sortByQurey.price = 1
     }
-  });
+    else if (req.query.sortBy === 'priceDesc') {
+      sortByQurey.price = -1;
+    }
+    else if (req.query.sortBy === 'poplar') {
+      sortByQurey.numOfSeats = 1;
+    }
+    else {
+      sortByQurey.destination = 1;
+    }
+  }
+
+  Flight.find({ $or: [query1, query2] }).sort(sortByQurey).then((flights) => {
+    res.render('flight/flight-list', {
+      flights: flights,
+      pageTitle: 'All flights',
+      path: '/flights',
+      isAdmin: isAdmin,
+    })
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+
 };
 
 exports.getflight = (req, res, next) => {
