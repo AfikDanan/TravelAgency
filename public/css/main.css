@@ -23,14 +23,8 @@ form {
   text-align: center;
 }
 
-.image {
-  max-width: 100%;
-
-}
-
-.image img {
-  max-width: 100%;
-  max-height: 20rem;
+.searchBarStickTop {
+  position: absolute;
 }
 
 .main-header {
@@ -183,18 +177,26 @@ form {
   text-align: center;
 }
 
-/* .card__header h1,
-.card__content h1,
-.card__content h2,
-.card__content p {} */
-
-.card__image {
-  width: 100%;
+/* .image {
+  max-width: 100%;
 }
 
-.card__image img {
-  max-height: 20rem;
+.image img {
   max-width: 100%;
+  max-height: 10%;
+} */
+
+/* .card__image {
+  width: 100%;
+} */
+
+.card__image img {
+  margin-top: 1rem;
+  margin-left: 2.5rem;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+  height: 15rem;
+  width: 15rem;
 }
 
 .card__actions {

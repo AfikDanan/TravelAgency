@@ -4,7 +4,9 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
+
             <%- include('../includes/searchBar.ejs') %>
+
 
                 <main>
                     <% if (flights.length> 0) { %>
@@ -22,8 +24,8 @@
                                     </div>
                                     <div class="card__content">
                                         <p class="flight__description">
-                                            from <%= flight.origin %> to <%= flight.destinaton %></br>
-                                                    date: <%= flight.date.toDateString() %></br>
+                                            from <%= flight.origin %> to <%= flight.destination %></br>
+                                                    Date: <%= flight.date.toDateString() %></br>
                                                         Take Off: <%= flight.takeOffTime %></br>
                                                             Landing: <%= flight.landing %></br>
                                                                 available seats: <%= flight.numOfSeats %></br>

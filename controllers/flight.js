@@ -27,8 +27,6 @@ exports.getAllflights = (req, res, next) => {
 };
 
 exports.getFilterflights = (req, res, next) => {
-  // const tripFilter = req.query.trip;
-
   let isAdmin = false;
   if (req.session.user) {
     isAdmin = req.session.user.type === 'admin';
@@ -36,11 +34,12 @@ exports.getFilterflights = (req, res, next) => {
 
   const query1 = {};
   const query2 = {};
+  const sortByQurey = {};
   if (req.query.destination) {
     query1.destination = req.query.destination;
   }
-  if (req.query.price) {
-    query1.price = { $lte: req.query.price };
+  if (req.query.minPrice || req.query.maxPrice) {
+    query1.price = { $gte: req.query.minPrice || 0, $lte: req.query.maxPrice || 10000 };
     query2.price = query1.price;
   }
   if (req.query.startDate && req.query.endDate) {
@@ -53,18 +52,34 @@ exports.getFilterflights = (req, res, next) => {
   else {
     query2.destination = query1.destination;
   }
-  Flight.find({ $or: [query1, query2] }, function (err, flights) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.render('flight/flight-list', {
-        flights: flights,
-        pageTitle: 'All flights',
-        path: '/flights',
-        isAdmin: isAdmin,
-      })
+
+  if (req.query.sortBy) {
+    if (req.query.sortBy === 'priceAsc') {
+      sortByQurey.price = 1
     }
-  });
+    else if (req.query.sortBy === 'priceDesc') {
+      sortByQurey.price = -1;
+    }
+    else if (req.query.sortBy === 'poplar') {
+      sortByQurey.numOfSeats = 1;
+    }
+    else {
+      sortByQurey.destination = 1;
+    }
+  }
+
+  Flight.find({ $or: [query1, query2] }).sort(sortByQurey).then((flights) => {
+    res.render('flight/flight-list', {
+      flights: flights,
+      pageTitle: 'All flights',
+      path: '/flights',
+      isAdmin: isAdmin,
+    })
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+
 };
 
 exports.getflight = (req, res, next) => {
@@ -103,25 +118,6 @@ exports.getIndex = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
-};
-
-exports.getCart = (req, res, next) => {
-  let isAdmin = false;
-  if (req.session.user) {
-    isAdmin = req.session.user.type === 'admin';
-  }
-  req.user
-    .populate('cart.items.flightId')
-    .then(user => {
-      const flights = user.cart.items;
-      res.render('flight/cart', {
-        path: '/cart',
-        pageTitle: 'Your Cart',
-        flights: flights,
-        isAdmin: isAdmin,
-      });
-    })
-    .catch(err => console.log(err));
 };
 
 exports.postCart = (req, res, next) => {
@@ -198,7 +194,6 @@ exports.getCheckout = (req, res, next) => {
   let total = 0;
   req.user
     .populate('cart.items.flightId')
-
     .then(user => {
       flights = user.cart.items;
       total = 0;
@@ -229,8 +224,8 @@ exports.getCheckout = (req, res, next) => {
       });
     })
     .then(session => {
-      res.render('flight/checkout', {
-        path: '/checkout',
+      res.render('flight/cart', {
+        path: '/cart',
         pageTitle: 'Checkout',
         flights: flights,
         totalSum: total,
@@ -289,7 +284,7 @@ exports.getCheckoutSuccess = (req, res, next) => {
 
 
 exports.getCheckoutCancel = (req, res, next) => {
-  res.redirect('/');
+  res.redirect('/cart');
 }
 
 exports.getInvoice = (req, res, next) => {
@@ -319,13 +314,15 @@ exports.getInvoice = (req, res, next) => {
       });
       pdfDoc.text('-----------------------');
       let totalPrice = 0;
+      console.log(order);
       order.flights.forEach(fli => {
+        console.log(fli.flight.destination);
         totalPrice += fli.quantity * fli.flight.price;
         pdfDoc
           .fontSize(14)
-          .text(
-            fli.flight.title +
-            ' - ' +
+          .text('Flight to ' +
+            fli.flight.destination +
+            ' - Tickets: ' +
             fli.quantity +
             ' x ' +
             '$' +
