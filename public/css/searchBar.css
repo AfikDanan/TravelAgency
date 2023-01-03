@@ -45,7 +45,7 @@
   width: 60rem;
   position: absolute;
   top: 2rem;
-  left: 50rem;
+  left: 40rem;
   transform: translate(-50%, -50%);
 }
 
@@ -58,7 +58,7 @@ label {
 
 .sort {
   position: absolute;
-  left: 95rem;
+  left: 85rem;
   top: 2rem;
   z-index: 1;
 

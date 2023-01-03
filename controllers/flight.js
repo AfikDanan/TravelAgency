@@ -120,25 +120,6 @@ exports.getIndex = (req, res, next) => {
     });
 };
 
-exports.getCart = (req, res, next) => {
-  let isAdmin = false;
-  if (req.session.user) {
-    isAdmin = req.session.user.type === 'admin';
-  }
-  req.user
-    .populate('cart.items.flightId')
-    .then(user => {
-      const flights = user.cart.items;
-      res.render('flight/cart', {
-        path: '/cart',
-        pageTitle: 'Your Cart',
-        flights: flights,
-        isAdmin: isAdmin,
-      });
-    })
-    .catch(err => console.log(err));
-};
-
 exports.postCart = (req, res, next) => {
   const flightId = req.body.flightId;
   const qty = req.body.quantity;
@@ -213,7 +194,6 @@ exports.getCheckout = (req, res, next) => {
   let total = 0;
   req.user
     .populate('cart.items.flightId')
-
     .then(user => {
       flights = user.cart.items;
       total = 0;
@@ -244,8 +224,8 @@ exports.getCheckout = (req, res, next) => {
       });
     })
     .then(session => {
-      res.render('flight/checkout', {
-        path: '/checkout',
+      res.render('flight/cart', {
+        path: '/cart',
         pageTitle: 'Checkout',
         flights: flights,
         totalSum: total,
@@ -304,7 +284,7 @@ exports.getCheckoutSuccess = (req, res, next) => {
 
 
 exports.getCheckoutCancel = (req, res, next) => {
-  res.redirect('/');
+  res.redirect('/cart');
 }
 
 exports.getInvoice = (req, res, next) => {
@@ -334,13 +314,15 @@ exports.getInvoice = (req, res, next) => {
       });
       pdfDoc.text('-----------------------');
       let totalPrice = 0;
+      console.log(order);
       order.flights.forEach(fli => {
+        console.log(fli.flight.destination);
         totalPrice += fli.quantity * fli.flight.price;
         pdfDoc
           .fontSize(14)
-          .text(
-            fli.flight.title +
-            ' - ' +
+          .text('Flight to ' +
+            fli.flight.destination +
+            ' - Tickets: ' +
             fli.quantity +
             ' x ' +
             '$' +
