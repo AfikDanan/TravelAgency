@@ -41,10 +41,14 @@ exports.getFilterflights = (req, res, next) => {
   if (req.session.user) {
     isAdmin = req.session.user.type === 'admin';
   }
-
   const query1 = {};
   const query2 = {};
   const sortByQurey = {};
+  if (req.query.takeOffTime) {
+    query1.takeOffTime = { $gte: req.query.takeOffTime };
+    query2.takeOffTime = query1.takeOffTime;
+  }
+
   if (req.query.destination) {
     query1.destination = req.query.destination;
   }
@@ -77,7 +81,7 @@ exports.getFilterflights = (req, res, next) => {
       sortByQurey.destination = 1;
     }
   }
-
+  console.log(query1);
   Flight.find({ $or: [query1, query2] }).sort(sortByQurey).then((flights) => {
     res.render('flight/flight-list', {
       flights: flights,
