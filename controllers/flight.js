@@ -2,9 +2,19 @@ const fs = require('fs');
 const path = require('path');
 const Flight = require('../models/flight');
 const Order = require('../models/order');
+const express = require('express');
+const router = express.Router();
 
 const stripe = require('stripe')('sk_test_51MLAFBA4k72Skn4PYTUmu8wPp0p2wQALYQB4RQGlZSONKLLAQLYPnTdxV5rlGxrFk2z6FpgHw2HwvB6cnpCqJ4Xs00MUS1iAK2');
 const PDFDocument = require('pdfkit');
+
+// const paypal = require('paypal-rest-sdk');
+const { error } = require('console');
+// paypal.configure({
+//   'mode': 'sandbox', //sandbox or live
+//   'client_id': 'Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY',
+//   'client_secret': 'EDvoSMvyMx8N3z3FcwkJ1JvcTo5zL6Okyz7TCQXJUCeniGMk9UYx0S0v12rmnVIFX5t8VvMcUPYSSBNw'
+// });
 
 exports.getAllflights = (req, res, next) => {
   let isAdmin = false;
@@ -199,40 +209,57 @@ exports.getCheckout = (req, res, next) => {
       total = 0;
       flights.forEach(f => {
         total += f.quantity * f.flightId.price;
+        if (f.quantity > f.flightId.numOfSeats) {
+          req.user.removeFromCart(f.flightId)
+            .then(() => req.user.addToCart(f.flightId, 1));
+        }
       });
+      if (flights.length > 0) {
+        return stripe.checkout.sessions.create({
+          mode: "payment",
+          payment_method_types: ['card'],
+          line_items: flights.map(f => {
+            return {
+              quantity: f.quantity,
+              price_data: {
+                currency: 'usd',
+                unit_amount: f.flightId.price * 100,
 
-      return stripe.checkout.sessions.create({
-        mode: "payment",
-        payment_method_types: ['card'],
-        line_items: flights.map(f => {
-          return {
-            quantity: f.quantity,
-            price_data: {
-              currency: 'usd',
-              unit_amount: f.flightId.price * 100,
-
-              product_data: {
-                name: `Flight to ${f.flightId.destination}`,
-                description: `From ${f.flightId.origin}`,
-                images: [f.flightId.imagePath]
+                product_data: {
+                  name: `Flight to ${f.flightId.destination}`,
+                  description: `From ${f.flightId.origin}`,
+                  images: [f.flightId.imagePath]
+                }
               }
-            }
-          };
-        }),
-        success_url: req.protocol + '://' + req.get('host') + '/checkout/success', // => http://localhost:3000
-        cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel'
-      });
+            };
+          }),
+          success_url: req.protocol + '://' + req.get('host') + '/checkout/success', // => http://localhost:3000
+          cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel'
+        });
+      }
     })
     .then(session => {
-      res.render('flight/cart', {
-        path: '/cart',
-        pageTitle: 'Checkout',
-        flights: flights,
-        totalSum: total,
-        sessionId: session.id,
-        isAdmin: isAdmin,
-      });
+      if (session) {
+        res.render('flight/cart', {
+          path: '/cart',
+          pageTitle: 'Checkout',
+          flights: flights,
+          totalSum: total,
+          sessionId: session.id,
+          isAdmin: isAdmin,
+        });
+      }
+      else {
+        res.render('flight/cart', {
+          path: '/cart',
+          pageTitle: 'Checkout',
+          flights: flights,
+          totalSum: total,
+          isAdmin: isAdmin,
+        });
+      }
     })
+
     .catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
@@ -281,7 +308,6 @@ exports.getCheckoutSuccess = (req, res, next) => {
       return next(error);
     });
 };
-
 
 exports.getCheckoutCancel = (req, res, next) => {
   res.redirect('/cart');
@@ -336,3 +362,5 @@ exports.getInvoice = (req, res, next) => {
     })
     .catch(err => next(err));
 };
+
+
