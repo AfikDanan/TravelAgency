@@ -81,7 +81,6 @@ exports.getFilterflights = (req, res, next) => {
       sortByQurey.destination = 1;
     }
   }
-  console.log(query1);
   Flight.find({ $or: [query1, query2] }).sort(sortByQurey).then((flights) => {
     res.render('flight/flight-list', {
       flights: flights,
