@@ -8,13 +8,16 @@
                 <% if (flights.length> 0) { %>
                     <ul class="cart__item-list">
                         <% flights.forEach(f=> { %>
+                            <input type="hidden" id="maxSeats" value="<%= f.flightId.numOfSeats %>">
+                            <input type="hidden" id="desiredSeats" value="<%= f.quantity %>">
+
                             <li class="cart__item">
                                 <h2>
                                     flight to
                                     <%= f.flightId.destination %>
                                         from <%= f.flightId.origin %> :
                                 </h2>
-                                <h2>Quantity: <%= f.quantity %>
+                                <h2>Quantity: <%= f.quantity %> of <%= f.flightId.numOfSeats %>
                                 </h2>
                                 <form action="/cart" method="POST">
 
@@ -65,4 +68,16 @@
                         <h1>No flights in Cart!</h1>
                         <% } %>
             </main>
+
+            <script>
+                if (maxSeats > desiredSeats) {
+                    document.getElementById('order-btn').disabled = true;
+                    document.alert('Please update your booking');
+                }
+                else {
+                    document.getElementById('order-btn').disabled = false;
+                }
+
+
+            </script>
             <%- include('../includes/end.ejs') %>
