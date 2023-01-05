@@ -163,10 +163,11 @@ form {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
-  margin-top: 5rem;
+  margin-top: 7rem;
 }
 
 .card {
+
   box-shadow: 0 20px 18px rgba(0, 0, 0, 0.26);
 
 }
