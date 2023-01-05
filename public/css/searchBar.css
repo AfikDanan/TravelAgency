@@ -44,7 +44,7 @@
 .wrap {
   width: 60rem;
   position: absolute;
-  top: 2rem;
+  top: 4rem;
   left: 40rem;
   transform: translate(-50%, -50%);
 }
@@ -56,10 +56,9 @@ label {
 }
 
 
-.sort {
+.radio {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   position: absolute;
-  left: 85rem;
-  top: 2rem;
-  z-index: 1;
 
 }

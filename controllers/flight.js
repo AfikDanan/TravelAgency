@@ -21,7 +21,7 @@ exports.getAllflights = (req, res, next) => {
   if (req.session.user) {
     isAdmin = req.session.user.type === 'admin';
   }
-  Flight.find()
+  Flight.find({ numOfSeats: { $gt: 0 } })
     .then(flights => {
       res.render('flight/flight-list', {
         flights: flights,
@@ -81,7 +81,7 @@ exports.getFilterflights = (req, res, next) => {
       sortByQurey.destination = 1;
     }
   }
-  Flight.find({ $or: [query1, query2] }).sort(sortByQurey).then((flights) => {
+  Flight.find({ $or: [query1, query2], numOfSeats: { $gt: 0 } }).sort(sortByQurey).then((flights) => {
     res.render('flight/flight-list', {
       flights: flights,
       pageTitle: 'All flights',
@@ -119,7 +119,7 @@ exports.getIndex = (req, res, next) => {
     isAdmin = req.session.user.type === 'admin';
   }
 
-  Flight.find().limit(4)
+  Flight.find({ numOfSeats: { $gt: 0 } }).limit(4)
     .then(flights => {
       res.render('flight/index', {
         flights: flights,
