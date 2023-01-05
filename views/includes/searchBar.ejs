@@ -16,24 +16,27 @@
         <input type="date" class="searchTerm" id="datePickerIdEnd" name="endDate" onchange="validRange()">
 
         <button class='searchButton' type="submit">Search</button>
-
-        <div style="display:inline-block; margin: 1rem; margin-left: 3rem;">
-          <input type="radio" id="twoWay" name="trip" class="searchTerm-radio" value="twoWay" checked>
+      </div>
+      <br><br>
+      <div class="radio">
+        <div style="display: inline-block;">
+          <input type="radio" id="twoWay" name="trip" class="searchTerm-radio" value="twoWay">
           <label for="twoWay"> Rountrip</label>
         </div>
-        <div class="reveal-if-active" style="display:inline-block; margin: 1rem; ">
-          <input type="radio" id="oneWay" name="trip" class="searchTerm-radio" value="oneWay">
+        <div style="display: inline-block;">
+          <input type="radio" id="oneWay" name="trip" class="searchTerm-radio" value="oneWay" checked>
           <label for="oneWay"> OneWay</label>
         </div>
+
+
+        <select name="sortBy" id="sortBy" form="searchBarForm">
+          <option value="priceAsc">Price Increase</option>
+          <option value="priceDesc">Price Decrease</option>
+          <option value="poplar">Most poplar</option>
+          <option value="destination">Country</option>
+        </select>
+
       </div>
-    </div>
-    <div class="sort" style="display:inline-block;">
-      <select name="sortBy" id="sortBy" form="searchBarForm">
-        <option value="priceAsc">Price Increase</option>
-        <option value="priceDesc">Price Decrease</option>
-        <option value="poplar">Most poplar</option>
-        <option value="destination">Country</option>
-      </select>
     </div>
 
 </div>

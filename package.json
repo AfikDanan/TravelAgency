@@ -33,6 +33,7 @@
     "moment": "^2.29.4",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
+    "paypal-rest-sdk": "^1.8.1",
     "pdfkit": "^0.13.0",
     "stripe": "^11.5.0"
   }
