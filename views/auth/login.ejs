@@ -44,12 +44,12 @@
       </div>
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1><a>Travel Agency</a></h1>
+          <h1 style="color: #212d63;">Travel Agency</h1>
         </div>
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
-              <span class="padding-bottom--15">Sign in</span>
+              <strong><span class="padding-bottom--15">Sign in</span></strong>
               <% if (errorMessage) { %>
                 <div class="user-message user-message--error">
                   <%= errorMessage %>
@@ -57,7 +57,7 @@
                 <% } %>
                   <form id="stripe-login" action="/login" method="POST">
                     <div class="field padding-bottom--24">
-                      <label for="email">E-Mail</label>
+                      <label for="email">Email</label>
                       <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
                         type="email" name="email" id="email" value="<%= oldInput.email %>">
                     </div>
@@ -71,7 +71,8 @@
                         type="password" name="password" id="password" value="<%= oldInput.password %>">
                     </div>
 
-                    <div class="field padding-bottom--24">
+                    <div class="field padding-bottom--24"
+                      style="margin-right: 6rem; margin-left:6rem; padding-top: 1rem;">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button class="btn" type="submit">Login</button>
                     </div>
@@ -80,7 +81,7 @@
             </div>
           </div>
 
-          <div class="footer-link padding-top--24">
+          <div class=" footer-link padding-top--24">
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
               <span><a href="/">© TravelAgency</a></span>
               <span><a href="/signup">signup</a></span>

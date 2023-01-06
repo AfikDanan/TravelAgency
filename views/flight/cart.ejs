@@ -4,80 +4,80 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-            <main>
-                <% if (flights.length> 0) { %>
-                    <ul class="cart__item-list">
-                        <% flights.forEach(f=> { %>
-                            <input type="hidden" id="maxSeats" value="<%= f.flightId.numOfSeats %>">
-                            <input type="hidden" id="desiredSeats" value="<%= f.quantity %>">
 
-                            <li class="cart__item">
-                                <h2>
-                                    flight to
-                                    <%= f.flightId.destination %>
-                                        from <%= f.flightId.origin %> :
-                                </h2>
-                                <h2>Quantity: <%= f.quantity %> of <%= f.flightId.numOfSeats %>
-                                </h2>
-                                <form action="/cart" method="POST">
+            <% if (flights.length> 0) { %>
+                <ul class="cart__item-list">
+                    <% flights.forEach(f=> { %>
+                        <input type="hidden" id="maxSeats" value="<%= f.flightId.numOfSeats %>">
+                        <input type="hidden" id="desiredSeats" value="<%= f.quantity %>">
 
-                                    <div class="quantity buttons_added card__actions">
+                        <li class="cart__item">
+                            <h2>
+                                flight to
+                                <%= f.flightId.destination %>
+                                    from <%= f.flightId.origin %> :
+                            </h2>
+                            <h2>Quantity: <%= f.quantity %> of <%= f.flightId.numOfSeats %>
+                            </h2>
+                            <form action="/cart" method="POST">
 
-                                        <input type="button" value="-" class="minus">
-                                        <input type="number" step="1" min="1" name="quantity"
-                                            max="<%= f.flightId.numOfSeats%>" id="quantity" value="1" title="Qty"
-                                            class="input-text qty text" size="4">
-                                        <input type="button" value="+" class="plus">
+                                <div class="quantity buttons_added card__actions">
 
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                        <input type="hidden" name="flightId" value="<%= f.flightId._id %>">
+                                    <input type="button" value="-" class="minus">
+                                    <input type="number" step="1" min="1" name="quantity"
+                                        max="<%= f.flightId.numOfSeats%>" id="quantity" value="1" title="Qty"
+                                        class="input-text qty text" size="4">
+                                    <input type="button" value="+" class="plus">
 
-                                        <button class="btn-update" type="submit">Update</button>
-
-                                    </div>
-                                </form>
-                                <form action="/cart-delete-item" method="POST">
-                                    <input type="hidden" value="<%= f.flightId._id %>" name="flightId">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button class="btn-danger" type="submit">Delete</button>
-                                </form>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <hr>
-                    <div class="centered">
-                        <h2>Total: $<%= totalSum %>
-                        </h2>
-                    </div>
+                                    <input type="hidden" name="flightId" value="<%= f.flightId._id %>">
 
-                    <div class="centered">
-                        <button id="order-btn" class="btn">ORDER</button>
-                        <script src="https://js.stripe.com/v3/"></script>
-                        <script>
-                            var stripe = Stripe('pk_test_51MLAFBA4k72Skn4PUpfL3OZDFJjGcdUNI59xXrPiMmTbbYvUsDpZxaQj3KZmiPBXHdHwTp8sOHTt1G09UJZ8IQI900mHyxwudg');
-                            var orderBtn = document.getElementById('order-btn');
-                            orderBtn.addEventListener('click', function () {
-                                stripe.redirectToCheckout({
-                                    sessionId: '<%= sessionId %>'
-                                });
+                                    <button class="btn-update" type="submit">Update</button>
+
+                                </div>
+                            </form>
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" value="<%= f.flightId._id %>" name="flightId">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn-danger" type="submit">Delete</button>
+                            </form>
+                        </li>
+                        <% }) %>
+                </ul>
+                <div class="centered">
+                    <h2>Total: $<%= totalSum %>
+                    </h2>
+                    <br>
+                </div>
+
+                <div>
+                    <button id="order-btn" class="btn">Order</button>
+                    <script src="https://js.stripe.com/v3/"></script>
+                    <script>
+                        var stripe = Stripe('pk_test_51MLAFBA4k72Skn4PUpfL3OZDFJjGcdUNI59xXrPiMmTbbYvUsDpZxaQj3KZmiPBXHdHwTp8sOHTt1G09UJZ8IQI900mHyxwudg');
+                        var orderBtn = document.getElementById('order-btn');
+                        orderBtn.addEventListener('click', function () {
+                            stripe.redirectToCheckout({
+                                sessionId: '<%= sessionId %>'
                             });
+                        });
+                    </script>
+                </div>
+
+                <% } else { %>
+                    <h2>No flights in Cart!</h2>
+                    <% } %>
+
+
+                        <script>
+                            if (maxSeats > desiredSeats) {
+                                document.getElementById('order-btn').disabled = true;
+                                document.alert('Please update your booking');
+                            }
+                            else {
+                                document.getElementById('order-btn').disabled = false;
+                            }
+
+
                         </script>
-                    </div>
-
-                    <% } else { %>
-                        <h1>No flights in Cart!</h1>
-                        <% } %>
-            </main>
-
-            <script>
-                if (maxSeats > desiredSeats) {
-                    document.getElementById('order-btn').disabled = true;
-                    document.alert('Please update your booking');
-                }
-                else {
-                    document.getElementById('order-btn').disabled = false;
-                }
-
-
-            </script>
-            <%- include('../includes/end.ejs') %>
+                        <%- include('../includes/end.ejs') %>

@@ -23,25 +23,34 @@
                                     </div>
                                     <div class="card__content">
                                         <p class="flight__description">
-                                            from <%= flight.origin %> to <%= flight.destination %></br>
-                                                    Date: <%= flight.date.toDateString() %></br>
-                                                        Take Off: <%= flight.takeOffTime %></br>
-                                                            Landing: <%= flight.landing %></br>
-                                                                available seats: <%= flight.numOfSeats %></br>
+                                            <strong>From:</strong>
+                                            <%= flight.origin %></br>
+                                                <strong>To:</strong>
+                                                <%= flight.destination %></br>
+                                                    <strong>Date:</strong>
+                                                    <%= flight.date.toDateString() %></br>
+                                                        <strong>Take Off:</strong>
+                                                        <%= flight.takeOffTime %></br>
+                                                            <strong> Landing:</strong>
+                                                            <%= flight.landing %></br>
+                                                                <strong>Available seats:</strong>
+                                                                <%= flight.numOfSeats %></br>
 
                                         </p>
 
-                                        <h2 class="flight__price">price: $
+                                        <h2 class="flight__price">Price: $
                                             <%= flight.price %>
                                         </h2>
                                     </div>
                                     <div class="card__actions">
-                                        <a href="/admin/edit-flight/<%= flight._id %>?edit=true" class="btn">Edit</a>
+                                        <a href="/admin/edit-flight/<%= flight._id %>?edit=true" class="btn"
+                                            style="background-color:gray"> Edit</a>
                                         <div style="margin: 1rem;">
                                             <form action="/admin/delete-flight" method="POST">
                                                 <input type="hidden" value="<%= flight._id %>" name="flightId">
                                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                <button class="btn" type="submit">Delete</button>
+                                                <button class="btn" style="background-color: rgb(132, 41, 41);"
+                                                    type="submit">Delete</button>
                                             </form>
                                         </div>
                                     </div>

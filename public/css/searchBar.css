@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
+
 
 .search {
   width: 75rem;
-  position: absolute;
+  position: relative;
   display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .searchTerm {
@@ -11,7 +17,7 @@
   border: 2px solid #00B4CC;
   margin-right: 1rem;
   padding: 5px;
-  height: 2rem;
+  height: 2.5rem;
   border-radius: 5px;
   background-color: #f2f2f2;
   color: #000000;
@@ -28,25 +34,32 @@
 }
 
 .searchButton {
-  width: 5rem;
-  height: 2rem;
-  border: 1px solid #00B4CC;
-
-  background: #00B4CC;
+  width: 10rem;
+  height: 2.5rem;
+  border: 1px solid #099dc4;
+  background: #099dc4;
   text-align: center;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  padding: 8px;
+
 }
 
 /*Resize the wrap to see the search bar change!*/
 .wrap {
-  width: 60rem;
+  padding-top: 2rem;
+  padding-left: 5rem;
+  margin-top: 15rem;
+  margin-left: 8rem;
+  width: 103rem;
   position: absolute;
   top: 4rem;
   left: 40rem;
   transform: translate(-50%, -50%);
+  background-color: #cce7f0;
+  text-align: center;
 }
 
 
@@ -59,6 +72,120 @@ label {
 .radio {
   margin-top: 0.5rem;
   margin-bottom: 2rem;
-  position: absolute;
+  margin-right: 4rem;
+}
 
+.sort {
+  margin-top: 0.5rem;
+  margin-left: 0rem;
+  margin-bottom: 2rem;
+  margin-right: 10rem;
+  padding: 0px;
+}
+
+.sorting {
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+}
+
+
+#travel-pic {
+  width: 15%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0;
+}
+
+.my-select-menu {
+  color: white;
+  background-color: #099dc4;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #099dc4;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.my-option {
+  font-size: 16px;
+  color: white;
+}
+
+.my-radio {
+  background-color: #099dc4;
+  size: 10px;
+}
+
+.my-radio-label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+[type="radio"]:checked+label,
+[type="radio"]:not(:checked)+label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: rgb(0, 0, 0);
+}
+
+[type="radio"]:checked+label:before,
+[type="radio"]:not(:checked)+label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ddd;
+  border-radius: 100%;
+  background: #fff;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"]:not(:checked)+label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #099dc4;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+[type="radio"]:not(:checked)+label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+[type="radio"]:checked+label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+#our-title {
+  font: 'Satisfy', cursive;
+}
+
+h1 {
+  font-family: 'Satisfy', cursive;
+  font-size: 50px;
+}
+
+p {
+  font-family: 'Kanit', sans-serif;
+  font-size: 20px;
 }
