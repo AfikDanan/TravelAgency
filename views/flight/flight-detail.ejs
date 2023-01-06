@@ -3,38 +3,45 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-            <main>
-                <div class="grid">
-                    <article class="card flight-item">
-                        <header class="card__header">
-                            <h1 class="flight__title">
-                                <%= flight.destination %>
-                            </h1>
-                        </header>
-                        <div class="card__image">
-                            <img src="<%= flight.imagePath %>" alt="<%= flight.destination %>">
 
-                        </div>
-                        <div class="card__content">
-                            <p class="flight__description">
-                                from <%= flight.origin %> to <%= flight.destination %></br>
-                                        Date: <%= flight.date %></br>
-                                            Take Off: <%= flight.takeOffTime %></br>
-                                                Landing: <%= flight.landing %></br>
-                                                    available seats: <%= flight.numOfSeats %></br>
+            <div class="grid">
+                <article class="card flight-item">
+                    <header class="card__header">
+                        <h2 class="flight__title">
+                            <%= flight.destination %>
+                        </h2>
+                    </header>
+                    <div class="card__image">
+                        <img src="<%= flight.imagePath %>" alt="<%= flight.destination %>">
 
-                            </p>
+                    </div>
+                    <div class="card__content">
+                        <p class="flight__description">
+                            <strong>From:</strong>
+                            <%= flight.origin %> <br>
+                                <strong>To:</strong>
+                                <%= flight.destination %></br>
+                                    <strong>Date:</strong>
+                                    <%= flight.date.toDateString() %></br>
+                                        <strong>Take Off:</strong>
+                                        <%= flight.takeOffTime %></br>
+                                            <strong>Landing:</strong>
+                                            <%= flight.landing %></br>
+                                                <strong>Available seats:</strong>
+                                                <%= flight.numOfSeats %></br>
 
-                            <h2 class="flight__price">price: $
-                                <%= flight.price %>
-                            </h2>
-                        </div>
-                        <div class="card__actions">
-                            <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
+                        </p>
 
-                        </div>
+                        <p class="flight__price"><strong>Price:</strong> $
+                            <%= flight.price %>
+                        </p>
+                    </div>
+                    <div class="card__actions">
+                        <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
 
-                    </article>
-                </div>
-            </main>
+                    </div>
+
+                </article>
+            </div>
+
             <%- include('../includes/end.ejs') %>
