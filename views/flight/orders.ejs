@@ -4,24 +4,24 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-            <main>
-                <% if (orders.length <=0) { %>
-                    <h1>Nothing there!</h1>
-                    <% } else { %>
-                        <ul class="orders">
-                            <% orders.forEach(order=> { %>
-                                <li class="orders__item">
-                                    <h1>Order - # <%= order._id %> - <a href="/orders/<%= order._id %>">Invoice</a></h1>
-                                    <ul class="orders__flights">
-                                        <% order.flights.forEach(f=> { %>
-                                            <li class="orders__flights-item">
-                                                <%= f.flight.destination %> (<%= f.quantity %>)
-                                            </li>
-                                            <% }); %>
-                                    </ul>
-                                </li>
-                                <% }); %>
-                        </ul>
-                        <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
+
+            <% if (orders.length <=0) { %>
+                <h2>Nothing there!</h2>
+                <% } else { %>
+                    <ul class="orders">
+                        <% orders.forEach(order=> { %>
+                            <li class="orders__item">
+                                <p>Order - # <%= order._id %> - <a href="/orders/<%= order._id %>">Invoice</a></p>
+                                <ul class="orders__flights">
+                                    <% order.flights.forEach(f=> { %>
+                                        <li class="orders__flights-item">
+                                            <%= f.flight.destination %> (<%= f.quantity %>)
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                            </li>
+                            <% }); %>
+                    </ul>
+                    <% } %>
+
+                        <%- include('../includes/end.ejs') %>

@@ -2,10 +2,14 @@
   <form action='/filterFlights' method="get" id="searchBarForm">
 
     <div class="wrap">
+      <img id="travel-pic" src="/public/media/travelPhoto.jpg" alt="travel_pic">
+      <h1 id="out-title">Afik & Topaz</h1>
+      <p>Travel Agency.</p>
+      <br><br><br>
       <div class="search" style="display:inline-flex;">
         <input type="text" class="searchTerm" id="search-query" name="destination" placeholder="Search Destination...">
 
-        <input type="number" class="searchTerm" id="price-filter" name="minPrice" placeholder="min Price" min="0">
+        <input type="number" class="searchTerm" id="price-filter" name="minPrice" placeholder="Min Price" min="0">
 
         <input type="number" class="searchTerm" id="price-filter" name="maxPrice" placeholder="Max Price">
 
@@ -17,32 +21,39 @@
 
         <button class='searchButton' type="submit">Search</button>
       </div>
-      <br><br>
-      <div class="radio">
-        <div style="display: inline-block;">
-          <input type="radio" id="twoWay" name="trip" class="searchTerm-radio" value="twoWay">
-          <label for="twoWay"> Rountrip</label>
-        </div>
-        <div style="display: inline-block;">
-          <input type="radio" id="oneWay" name="trip" class="searchTerm-radio" value="oneWay" checked>
-          <label for="oneWay"> OneWay</label>
-        </div>
 
 
-        <select name="sortBy" id="sortBy" form="searchBarForm">
-          <option value="priceAsc">Price Increase</option>
-          <option value="priceDesc">Price Decrease</option>
-          <option value="poplar">Most poplar</option>
-          <option value="destination">Country</option>
-        </select>
+      <br><br><br>
+
+      <div class="sorting">
+        <div class="radio" style="display: inline-block;">
+          <input class="my-radio" type="radio" id="twoWay" name="trip" class="searchTerm-radio" value="twoWay">
+          <label class="my-radio-label" for="twoWay"> Rountrip</label>
+        </div>
+        <div class="radio" style="display: inline-block;">
+          <input class="my-radio" type="radio" id="oneWay" name="trip" class="searchTerm-radio" value="oneWay" checked>
+          <label class="my-radio-label" for="oneWay"> OneWay</label>
+        </div>
+
+        <div class="sort" style="display: inline-block;">
+          <select class="my-select-menu" name="sortBy" id="sortBy" form="searchBarForm">
+            <option class="my-option" value="priceAsc">Price Increase</option>
+            <option value="priceDesc">Price Decrease</option>
+            <option value="poplar">Most poplar</option>
+            <option value="destination">Country</option>
+          </select>
+        </div>
 
       </div>
+
+
+
     </div>
-
+  </form>
 </div>
 
-</form>
-</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
 <script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
 <script src="/vendors/formvalidation/dist/js/plugins/StartEndDate.min.js"></script>

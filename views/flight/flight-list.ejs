@@ -22,26 +22,39 @@
                                     </div>
                                     <div class="card__content">
                                         <p class="flight__description" id='origin'>
-                                            from <%= flight.origin %> to <%= flight.destination %></br></p>
+                                            <strong>From:</strong>
+                                            <%= flight.origin %><br>
+                                                <strong>To:</strong>
+                                                <%= flight.destination %></br>
+                                        </p>
 
                                         <p class="flight__description" id='date'>
-                                            Date: <%= flight.date.toDateString() %></br></p>
+                                            <strong>Date:</strong>
+                                            <%= flight.date.toDateString() %></br>
+                                        </p>
 
                                         <p class="flight__description" id='takeOffTime'>
-                                            Take Off: <%= flight.takeOffTime %></br> </p>
+                                            <strong>Take Off:</strong>
+                                            <%= flight.takeOffTime %></br>
+                                        </p>
 
                                         <p class="flight__description" id='landing'>
-                                            Landing: <%= flight.landing %></br></p>
+                                            <strong>Landing:</strong>
+                                            <%= flight.landing %></br>
+                                        </p>
 
                                         <p class="flight__description" id='numOfSeats'>
-                                            available seats: <%= flight.numOfSeats %></br></p>
+                                            <strong>Available seats:</strong>
+                                            <%= flight.numOfSeats %></br>
+                                        </p>
 
                                         <h2 class="flight__price">price: $
                                             <%= flight.price %>
                                         </h2>
                                     </div>
                                     <div class="card__actions">
-                                        <a href="/flights/<%= flight._id %>" class="btn">Details</a>
+                                        <a href="/flights/<%= flight._id %>" class="btn"
+                                            style="background-color:#749ea8;">Details</a>
                                         <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
                                     </div>
 

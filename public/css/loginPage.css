@@ -88,7 +88,7 @@ a {
 }
 
 .box-background--blue {
-  background-color: #5469d4;
+  background-color: #099dc4;
 }
 
 .box-background--white {
@@ -146,6 +146,11 @@ a {
   background: white;
   border-radius: 4px;
   box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+  margin-bottom: 1rem;
+}
+
+.formbg-inner {
+  margin-right: auto;
 }
 
 span {
@@ -175,7 +180,7 @@ label {
   min-height: 44px;
   border: unset;
   border-radius: 4px;
-  outline-color: rgb(84 105 212 / 0.5);
+  outline-color: #434c4f;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -195,7 +200,7 @@ label {
   min-height: 44px;
   border: unset;
   border-radius: 4px;
-  outline-color: rgb(84 105 212 / 0.5);
+  outline-color: #099dc4;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -211,11 +216,11 @@ label {
 input[type="submit"],
 .btn,
 .btn-cart {
-  background-color: rgb(84, 105, 212);
+  background-color: #099dc4;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-    rgb(84, 105, 212) 0px 0px 0px 1px,
+    #099dc4,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;

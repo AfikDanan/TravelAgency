@@ -4,10 +4,10 @@
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
-                <a class="<%= path === '/' ? 'active' : '' %>" href="/">home</a>
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
             </li>
             <li class="main-header__item">
-                <a class="<%= path === '/flights' ? 'active' : '' %>" href="/flights">flights</a>
+                <a class="<%= path === '/flights' ? 'active' : '' %>" href="/flights">Flights</a>
             </li>
             <% if (isAuthenticated) { %>
                 <li class="main-header__item">
@@ -50,10 +50,10 @@
 <nav class="mobile-nav">
     <ul class="mobile-nav__item-list">
         <li class="mobile-nav__item">
-            <a class="<%= path === '/' ? 'active' : '' %>" href="/">flight</a>
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Flight</a>
         </li>
         <li class="mobile-nav__item">
-            <a class="<%= path === '/flights' ? 'active' : '' %>" href="/flights">flights</a>
+            <a class="<%= path === '/flights' ? 'active' : '' %>" href="/flights">Flights</a>
         </li>
         <% if (isAuthenticated) { %>
             <li class="mobile-nav__item">

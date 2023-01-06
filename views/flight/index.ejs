@@ -7,16 +7,18 @@
 
             <%- include('../includes/searchBar.ejs') %>
 
-
                 <main>
+                    <br>
+                    <h1>Popular destinations</h1>
+
                     <% if (flights.length> 0) { %>
                         <div class="grid">
                             <% for (let flight of flights) { %>
                                 <article class="card flight-item">
                                     <header class="card__header">
-                                        <h1 class="flight__title">
+                                        <h2 class="flight__title">
                                             <%= flight.destination %>
-                                        </h1>
+                                        </h2>
                                     </header>
                                     <div class="card__image">
                                         <img src="<%= flight.imagePath %>" alt="<%= flight.destination %>">
@@ -24,20 +26,28 @@
                                     </div>
                                     <div class="card__content">
                                         <p class="flight__description">
-                                            from <%= flight.origin %> to <%= flight.destination %></br>
-                                                    Date: <%= flight.date.toDateString() %></br>
-                                                        Take Off: <%= flight.takeOffTime %></br>
-                                                            Landing: <%= flight.landing %></br>
-                                                                available seats: <%= flight.numOfSeats %></br>
+                                            <strong>From:</strong>
+                                            <%= flight.origin %> <br>
+                                                <strong>To:</strong>
+                                                <%= flight.destination %></br>
+                                                    <strong>Date:</strong>
+                                                    <%= flight.date.toDateString() %></br>
+                                                        <strong>Take Off:</strong>
+                                                        <%= flight.takeOffTime %></br>
+                                                            <strong>Landing:</strong>
+                                                            <%= flight.landing %></br>
+                                                                <strong>Available seats:</strong>
+                                                                <%= flight.numOfSeats %></br>
 
                                         </p>
 
-                                        <h2 class="flight__price">price: $
+                                        <p class="flight__price"><strong>Price:</strong> $
                                             <%= flight.price %>
-                                        </h2>
+                                        </p>
                                     </div>
                                     <div class="card__actions">
-                                        <a href="/flights/<%= flight._id %>" class="btn">Details</a>
+                                        <a href="/flights/<%= flight._id %>" class="btn"
+                                            style="background-color:#749ea8;">Details</a>
                                         <%- include('../includes/add-to-cart.ejs', {flight: flight}) %>
                                     </div>
 
