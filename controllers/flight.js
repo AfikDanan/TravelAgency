@@ -5,15 +5,15 @@ const Order = require('../models/order');
 const express = require('express');
 const router = express.Router();
 
-const stripe = require('stripe')('sk_test_51MLAFBA4k72Skn4PYTUmu8wPp0p2wQALYQB4RQGlZSONKLLAQLYPnTdxV5rlGxrFk2z6FpgHw2HwvB6cnpCqJ4Xs00MUS1iAK2');
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 const PDFDocument = require('pdfkit');
 
 const paypal = require('paypal-rest-sdk');
 const { error } = require('console');
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id': 'Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY',
-  'client_secret': 'EDvoSMvyMx8N3z3FcwkJ1JvcTo5zL6Okyz7TCQXJUCeniGMk9UYx0S0v12rmnVIFX5t8VvMcUPYSSBNw'
+  'client_id': process.env.PAYPAL_CLIENT_ID,
+  'client_secret': process.env.PAYPAL_CLIENT_SECRET
 });
 
 exports.getAllflights = (req, res, next) => {
