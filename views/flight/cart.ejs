@@ -45,6 +45,7 @@
                         <% }) %>
                 </ul>
                 <div class="centered">
+                    <input type="hidden" id="total" value='<%= totalSum %>'>
                     <h2>Total: $<%= totalSum %>
                     </h2>
                     <br>
@@ -64,20 +65,42 @@
                     </script>
                 </div>
 
+                <div class="centered" id="paypal-button"></div>
+
+                <script
+                    src="https://www.paypal.com/sdk/js?client-id=Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY"></script>
+
+                <script>
+
+                    paypal.Buttons({
+                        createOrder: function (data, actions) {
+                            // Set up the transaction
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: {
+                                        value: document.getElementById('total').value
+                                    }
+                                }]
+                            });
+                        },
+                        onApprove: function (data, actions) {
+                            window.location.href = "/checkout/success";
+                        },
+
+                        onCancel: function (data) {
+                            window.location.href = "/checkout/cancel";
+                        },
+                        onError: function (err) {
+
+                            window.location.href = "/404";
+                        }
+                    }).render('#paypal-button');
+
+                </script>
+
                 <% } else { %>
                     <h2>No flights in Cart!</h2>
                     <% } %>
 
 
-                        <script>
-                            if (maxSeats > desiredSeats) {
-                                document.getElementById('order-btn').disabled = true;
-                                document.alert('Please update your booking');
-                            }
-                            else {
-                                document.getElementById('order-btn').disabled = false;
-                            }
-
-
-                        </script>
                         <%- include('../includes/end.ejs') %>
