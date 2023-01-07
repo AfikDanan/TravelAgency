@@ -8,13 +8,13 @@ const router = express.Router();
 const stripe = require('stripe')('sk_test_51MLAFBA4k72Skn4PYTUmu8wPp0p2wQALYQB4RQGlZSONKLLAQLYPnTdxV5rlGxrFk2z6FpgHw2HwvB6cnpCqJ4Xs00MUS1iAK2');
 const PDFDocument = require('pdfkit');
 
-// const paypal = require('paypal-rest-sdk');
+const paypal = require('paypal-rest-sdk');
 const { error } = require('console');
-// paypal.configure({
-//   'mode': 'sandbox', //sandbox or live
-//   'client_id': 'Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY',
-//   'client_secret': 'EDvoSMvyMx8N3z3FcwkJ1JvcTo5zL6Okyz7TCQXJUCeniGMk9UYx0S0v12rmnVIFX5t8VvMcUPYSSBNw'
-// });
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY',
+  'client_secret': 'EDvoSMvyMx8N3z3FcwkJ1JvcTo5zL6Okyz7TCQXJUCeniGMk9UYx0S0v12rmnVIFX5t8VvMcUPYSSBNw'
+});
 
 exports.getAllflights = (req, res, next) => {
   let isAdmin = false;
@@ -187,6 +187,7 @@ exports.getOrders = (req, res, next) => {
     isAdmin = req.session.user.type === 'admin';
   }
   Order.find({ 'user.userId': req.user._id })
+    .populate("flights.flight")
     .then(orders => {
       res.render('flight/orders', {
         path: '/orders',
@@ -321,6 +322,7 @@ exports.getCheckoutCancel = (req, res, next) => {
 exports.getInvoice = (req, res, next) => {
   const orderId = req.params.orderId;
   Order.findById(orderId)
+    .populate("flights.flight")
     .then(order => {
       if (!order) {
         return next(new Error('No order found.'));
@@ -345,9 +347,8 @@ exports.getInvoice = (req, res, next) => {
       });
       pdfDoc.text('-----------------------');
       let totalPrice = 0;
-      console.log(order);
+
       order.flights.forEach(fli => {
-        console.log(fli.flight.destination);
         totalPrice += fli.quantity * fli.flight.price;
         pdfDoc
           .fontSize(14)
