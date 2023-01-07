@@ -243,14 +243,16 @@ exports.getCheckout = (req, res, next) => {
     })
     .then(session => {
       if (session) {
-        res.render('flight/cart', {
-          path: '/cart',
-          pageTitle: 'Checkout',
-          flights: flights,
-          totalSum: total,
-          sessionId: session.id,
-          isAdmin: isAdmin,
-        });
+        if (flights.length > 0) {
+          res.render('flight/cart', {
+            path: '/cart',
+            pageTitle: 'Checkout',
+            flights: flights,
+            totalSum: total,
+            sessionId: session.id,
+            isAdmin: isAdmin,
+          });
+        }
       }
       else {
         res.render('flight/cart', {

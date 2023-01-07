@@ -3,7 +3,7 @@
         <div class="quantity buttons_added card__actions">
             <h4> number of tickets: </h4>
             <input type="button" value="-" class="minus">
-            <input type="number" step="1" min="0" name="quantity" max="<%= flight.numOfSeats%>" id="quantity" value="0"
+            <input type="number" step="1" min="1" name="quantity" max="<%= flight.numOfSeats%>" id="quantity" value="1"
                 title="Qty" class="input-text qty text" size="4">
             <input type="button" value="+" class="plus">
 
@@ -11,8 +11,9 @@
         <% }%>
             <div class="card__actions">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button class="btn" type="submit" style="background-color:#298499;">Add to Cart</button>
+                <button class="btn addToCartBtn" name="addToCartBtn" type="submit" style="background-color:#298499;">Add
+                    to
+                    Cart</button>
                 <input type="hidden" name="flightId" value="<%= flight._id %>">
-
             </div>
 </form>
