@@ -15,6 +15,7 @@
                                 <ul class="orders__flights">
                                     <% order.flights.forEach(f=> { %>
                                         <li class="orders__flights-item">
+
                                             Flight from <strong>
                                                 <%= f.flight.origin %>
                                             </strong>
@@ -29,6 +30,7 @@
                                             <br>
 
                                             Tickets: <%= f.quantity %>
+
                                         </li>
                                         <% }); %>
                                 </ul>
