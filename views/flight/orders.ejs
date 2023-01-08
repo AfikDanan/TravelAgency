@@ -15,9 +15,22 @@
                                 <ul class="orders__flights">
                                     <% order.flights.forEach(f=> { %>
                                         <li class="orders__flights-item">
-                                            Flight from <%= f.flight.origin %> to <%= f.flight.destination %>
-                                                    &emsp; &emsp;
-                                                    Quantity -> <%= f.quantity %>.
+
+                                            Flight from <strong>
+                                                <%= f.flight.origin %>
+                                            </strong>
+                                            to <strong>
+                                                <%= f.flight.destination %>
+                                            </strong>
+                                            <br>
+                                            At <strong>
+                                                <%= f.flight.date.toDateString() %> ,
+                                                    <%= f.flight.takeOffTime %>
+                                            </strong>
+                                            <br>
+
+                                            Tickets: <%= f.quantity %>
+
                                         </li>
                                         <% }); %>
                                 </ul>
