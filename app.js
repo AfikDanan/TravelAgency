@@ -29,7 +29,11 @@ const adminRoutes = require('./routes/admin');
 const flightRoutes = require('./routes/flight');
 const authRoutes = require('./routes/auth');
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: false,
+  crossOriginEmbedderPolicy: false,
+}));
 app.use(compression());
 
 app.use(bodyParser.urlencoded({ extended: false }));

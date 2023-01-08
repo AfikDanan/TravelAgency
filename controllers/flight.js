@@ -232,7 +232,6 @@ exports.getCheckout = (req, res, next) => {
                 product_data: {
                   name: `Flight to ${f.flightId.destination}`,
                   description: `From ${f.flightId.origin}`,
-                  images: [f.flightId.imagePath]
                 }
               }
             };
