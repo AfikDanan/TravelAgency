@@ -199,6 +199,29 @@ exports.getOrders = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.checkStock = (req, res, next) => {
+  req.user
+    .populate('cart.items.flightId')
+    .then(user => {
+      flights = user.cart.items;
+      if (flights.length > 0) {
+        flights.forEach(f => {
+          if (f.quantity > f.flightId.numOfSeats) {
+            req.user.removeFromCart(f.flightId).then(() => { next(); });
+          }
+          else {
+            next();
+          }
+        });
+      }
+      else {
+        next();
+      }
+    });
+}
+
+
+
 exports.getCheckout = (req, res, next) => {
   let isAdmin = false;
   if (req.session.user) {
@@ -213,10 +236,6 @@ exports.getCheckout = (req, res, next) => {
       total = 0;
       flights.forEach(f => {
         total += f.quantity * f.flightId.price;
-        if (f.quantity > f.flightId.numOfSeats) {
-          req.user.removeFromCart(f.flightId)
-            .then(() => req.user.addToCart(f.flightId, 1));
-        }
       });
       if (flights.length > 0) {
         return stripe.checkout.sessions.create({
