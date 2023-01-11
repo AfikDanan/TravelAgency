@@ -207,17 +207,12 @@ exports.checkStock = (req, res, next) => {
       if (flights.length > 0) {
         flights.forEach(f => {
           if (f.quantity > f.flightId.numOfSeats) {
-            req.user.removeFromCart(f.flightId).then(() => { next(); });
-          }
-          else {
-            next();
+            req.user.removeFromCart(f.flightId);
           }
         });
-      }
-      else {
-        next();
-      }
-    });
+      };
+      next();
+    })
 }
 
 
