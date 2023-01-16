@@ -8,10 +8,11 @@ const flash = require('connect-flash');
 
 const mongoose = require('mongoose');
 const MongoDBTravelAgency = require('connect-mongodb-session')(session);
-const MONGODB_URI = "mongodb+srv://admin:admin@cluster.xmzwgdr.mongodb.net/TravelAgency?retryWrites=true&w=majority";
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster.xmzwgdr.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 const errorController = require('./controllers/error');
 const User = require('./models/user');
-
+const helmet = require('helmet');
+const compression = require('compression');
 const app = express();
 
 const TravelAgency = new MongoDBTravelAgency({
@@ -27,6 +28,13 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const flightRoutes = require('./routes/flight');
 const authRoutes = require('./routes/auth');
+
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: false,
+  crossOriginEmbedderPolicy: false,
+}));
+app.use(compression());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -78,7 +86,7 @@ app.use(errorController.get404Page);
 mongoose
   .connect(MONGODB_URI)
   .then(result => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log(err);

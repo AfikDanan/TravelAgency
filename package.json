@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "SET NODE_ENV=development&& SET MONGO_USER=admin&& SET MONGO_PASSWORD=admin&& SET MONGO_DEFAULT_DATABASE=TravelAgency&& SET STRIPE_KEY=sk_test_51MLAFBA4k72Skn4PYTUmu8wPp0p2wQALYQB4RQGlZSONKLLAQLYPnTdxV5rlGxrFk2z6FpgHw2HwvB6cnpCqJ4Xs00MUS1iAK2&& SET PAYPAL_CLIENT_ID=Af866sGqvCYo08HegPWAHPpR2owJE8QbXwjnRA4u4cmqyb8qBQcsga6UoWnAdX56eRK0H4UO-0r5pTqY&& SET PAYPAL_CLIENT_SECRET=EDvoSMvyMx8N3z3FcwkJ1JvcTo5zL6Okyz7TCQXJUCeniGMk9UYx0S0v12rmnVIFX5t8VvMcUPYSSBNw&& node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "csurf": "^1.11.0",
@@ -30,6 +32,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
+    "helmet": "^6.0.1",
     "moment": "^2.29.4",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
