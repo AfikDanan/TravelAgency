@@ -14,7 +14,7 @@ router.get('/filterFlights', flightController.getFilterflights);
 
 router.get('/flights/:flightId', flightController.getflight);
 
-router.get('/cart', isAuth, flightController.getCheckout);
+router.get('/cart', isAuth, flightController.checkStock, flightController.getCheckout);
 
 router.post('/cart', isAuth, flightController.postCart);
 
